@@ -1,3 +1,6 @@
+import { FcGoogle } from "react-icons/fc"
+import { FaGithub } from "react-icons/fa"
+
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import {
@@ -56,6 +59,7 @@ export const SignInCard = () => {
                   size="lg"
                   className="w=full"
                 >
+                    <FcGoogle className="mr-2 size-5" />
                     Login with Google
                 </Button>
                 <Button
@@ -63,6 +67,7 @@ export const SignInCard = () => {
                   size="lg"
                   className="w=full"
                 >
+                    <FaGithub className="mr-2 size-5" />
                     Login with Github
                 </Button>
             </CardContent>
