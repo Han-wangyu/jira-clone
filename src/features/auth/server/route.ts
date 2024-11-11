@@ -7,6 +7,10 @@ const app = new Hono()
         "/login",
         zValidator("json", loginSchema),
         (c) => {
+            const { email, password } = c.req.valid("json");
+
+            console.log({ email, password });
+
             return c.json({ success: "ok" });
         }
     );
