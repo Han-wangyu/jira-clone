@@ -13,9 +13,22 @@ const app = new Hono()
         async (c) => {
             const { email, password } = c.req.valid("json");
 
-            console.log({ email, password });
+            const { account } = await createAdminClient();
+            const session = await account.createEmailPasswordSession(
+                email,
+                password,
+            );
 
-            return c.json({ success: "ok" });
+            setCookie(c, AUTH_COOKIE, session.secret, {
+                path: "/",
+                httpOnly: true,
+                secure: true,
+                sameSite: "strict",
+                maxAge: 60 * 60 * 24 * 30,
+            });            
+
+
+            return c.json({ success: true });
         }
     )
     .post(
@@ -25,7 +38,7 @@ const app = new Hono()
             const { name, email, password } = c.req.valid("json");
 
             const { account } = await createAdminClient();
-            const user = await account.create(
+            await account.create(
                 ID.unique(),
                 email,
                 password,
@@ -45,7 +58,7 @@ const app = new Hono()
                 maxAge: 60 * 60 * 24 * 30,
             });
 
-            return c.json({ data: user });
+            return c.json({ success: true });
         }
     );
 
