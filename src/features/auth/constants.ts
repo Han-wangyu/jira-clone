@@ -1,0 +1,1 @@
+export const AUTH_COOKIE = "yhs-jira-clone-session";
